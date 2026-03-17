@@ -1,6 +1,6 @@
 # GEO Multi-Agent
 
-GEO-Agent is an experimental AI Agent designed to analyze how AI search engines recommend brands and products.
+GEO Multi-Agent is an experimental AI Agent designed to analyze how AI search engines recommend brands and products.
 
 With the rise of AI search tools such as ChatGPT and Perplexity, traditional SEO is evolving into GEO (Generative Engine Optimization).
 
