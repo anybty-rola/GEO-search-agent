@@ -1,4 +1,4 @@
-# GEO-Agent
+# GEO Multi-Agent
 
 GEO-Agent is an experimental AI Agent designed to analyze how AI search engines recommend brands and products.
 
