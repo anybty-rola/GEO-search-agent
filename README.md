@@ -1,5 +1,9 @@
 # GEO Multi-Agent MVP（Streamlit）
 
+**GEO Multi-Agent** is an experimental AI agent that analyzes how AI search engines recommend brands and products. With tools like ChatGPT and Perplexity, traditional SEO is evolving into **GEO (Generative Engine Optimization)**. This project simulates user queries, aggregates web sources, and surfaces brand/citation insights.
+
+---
+
 这是一个最小可运行的 **GEO Multi-Agent** 演示站点：输入关键词 -> 模拟用户搜索意图 -> 调用大模型生成回答 -> 抽取引用来源 -> 输出结构化 GEO 洞察报告。
 
 ## 目录结构
@@ -84,4 +88,3 @@ streamlit run app.py
 
 - 如果启动时报缺包：确认已激活虚拟环境并重新 `pip install -r requirements.txt`
 - 如果 API 调用 401：确认 `DEEPSEEK_API_KEY` 正确且已导出到环境变量
-
