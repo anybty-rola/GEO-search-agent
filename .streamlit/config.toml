@@ -1,0 +1,7 @@
+# 通用设置。监听地址/端口以启动命令为准（本地、Docker、Streamlit Cloud 各自覆盖）。
+[server]
+headless = true
+enableXsrfProtection = true
+
+[browser]
+gatherUsageStats = false

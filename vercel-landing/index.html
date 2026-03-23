@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GEO Multi-Agent</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 40rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        line-height: 1.6;
+      }
+      a.button {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.6rem 1.2rem;
+        background: #ff4b4b;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+      }
+      code {
+        background: #f4f4f4;
+        padding: 0.1rem 0.35rem;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>GEO Multi-Agent MVP</h1>
+    <p>
+      本页可部署在 <strong>Vercel</strong> 作为对外入口；实际应用为
+      <strong>Streamlit</strong>，请在下方按钮中填入你的公网地址（例如 Streamlit Community Cloud
+      提供的 <code>*.streamlit.app</code>）。
+    </p>
+    <p>
+      <a class="button" id="go" href="#">打开应用（请先修改 index.html 中的链接）</a>
+    </p>
+    <p><small>部署此静态页：在 Vercel 中选本目录 <code>vercel-landing</code> 为根目录即可。</small></p>
+    <script>
+      // TODO: 改成你的 Streamlit 公网地址
+      const STREAMLIT_URL = "https://YOUR-APP-NAME.streamlit.app";
+      const a = document.getElementById("go");
+      if (STREAMLIT_URL.includes("YOUR-APP-NAME")) {
+        a.href = "#";
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          alert("请编辑 vercel-landing/index.html，将 STREAMLIT_URL 改为真实地址。");
+        });
+      } else {
+        a.href = STREAMLIT_URL;
+      }
+    </script>
+  </body>
+</html>
