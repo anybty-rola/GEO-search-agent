@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import time
-from typing import Dict, List
+from typing import Dict, List, Iterable
 
 from duckduckgo_search import DDGS
 from duckduckgo_search.exceptions import DuckDuckGoSearchException
@@ -19,11 +19,13 @@ class PlatformAgent:
     max_results_per_query: int = 5
     retry_times: int = 2
     retry_sleep_s: float = 1.2
-
+    platform_sites: Dict[str, List[str]] | None = None
     PLATFORM_SITES: Dict[str, List[str]] = None  # type: ignore
 
     def __post_init__(self) -> None:
-        if self.PLATFORM_SITES is None:
+        if self.platform_sites is not None:
+            object.__setattr__(self, "PLATFORM_SITES", dict(self.platform_sites))
+        elif self.PLATFORM_SITES is None:
             object.__setattr__(
                 self,
                 "PLATFORM_SITES",
@@ -70,7 +72,16 @@ class PlatformAgent:
                     continue
                 return []
 
-    def run(self, queries: List[str]) -> Dict[str, List[dict]]:
+    def run(
+        self,
+        queries: List[str],
+        *,
+        enabled_platforms: Iterable[str] | None = None,
+        max_sites_per_platform: int = 2,
+    ) -> Dict[str, List[dict]]:
+        enabled = set(enabled_platforms) if enabled_platforms is not None else set(self.PLATFORM_SITES.keys())
+        enabled.add("通用网页")  # 永远保留
+
         out: Dict[str, List[dict]] = {k: [] for k in self.PLATFORM_SITES.keys()}
         for q in queries:
             # 通用网页
@@ -80,7 +91,9 @@ class PlatformAgent:
             for platform, sites in self.PLATFORM_SITES.items():
                 if not sites or platform == "通用网页":
                     continue
-                for site in sites[:2]:
+                if platform not in enabled:
+                    continue
+                for site in sites[: max(0, int(max_sites_per_platform))]:
                     out[platform].extend(self._search(q, site=site))
 
         # 简单去重（按 url）

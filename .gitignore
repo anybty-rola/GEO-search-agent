@@ -10,6 +10,9 @@ venv/
 .env.*
 !env.example
 
+# Streamlit secrets（本地可放空文件以消除提示；不要提交真实密钥）
+.streamlit/secrets.toml
+
 # IDE / OS
 .idea/
 .vscode/

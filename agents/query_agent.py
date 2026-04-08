@@ -13,23 +13,38 @@ class QueryAgent:
 
     max_queries: int = 8
 
-    def run(self, keyword: str) -> List[str]:
+    def run(self, keyword: str, *, lang: str = "zh") -> List[str]:
         kw = (keyword or "").strip()
         if not kw:
             return []
 
-        templates = [
-            "{kw} 推荐",
-            "{kw} 怎么选",
-            "{kw} 值得买吗",
-            "{kw} 对比",
-            "{kw} 评测",
-            "{kw} 优缺点",
-            "{kw} 价格",
-            "{kw} 哪个牌子好",
-            "{kw} 适合什么人",
-            "{kw} 使用体验",
-        ]
+        lang = (lang or "zh").strip().lower()
+        if lang == "en":
+            templates = [
+                "{kw} best picks",
+                "{kw} buying guide",
+                "{kw} worth it",
+                "{kw} vs alternatives",
+                "{kw} review",
+                "{kw} pros and cons",
+                "{kw} price",
+                "{kw} reddit",
+                "{kw} for travel",
+                "{kw} safety",
+            ]
+        else:
+            templates = [
+                "{kw} 推荐",
+                "{kw} 怎么选",
+                "{kw} 值得买吗",
+                "{kw} 对比",
+                "{kw} 评测",
+                "{kw} 优缺点",
+                "{kw} 价格",
+                "{kw} 哪个牌子好",
+                "{kw} 适合什么人",
+                "{kw} 使用体验",
+            ]
         queries = [t.format(kw=kw) for t in templates]
         return queries[: self.max_queries]
 

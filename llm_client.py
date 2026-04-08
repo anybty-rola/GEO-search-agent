@@ -81,7 +81,7 @@ class OpenAICompatClient:
     timeout_s: int = 60
     extra_headers: Optional[Dict[str, str]] = None
 
-    def chat(self, prompt: str) -> Tuple[str, List[str]]:
+    def chat(self, prompt: str, *, system_prompt: Optional[str] = None) -> Tuple[str, List[str]]:
         url = self.base_url.rstrip("/") + "/chat/completions"
         headers = {
             "Authorization": f"Bearer {self.api_key}",
@@ -90,12 +90,16 @@ class OpenAICompatClient:
         if self.extra_headers:
             headers.update(self.extra_headers)
 
+        sys_default = (
+            "你是一个GEO（Generative Engine Optimization）分析助手。"
+            "你必须在回答末尾给出Sources列表，并尽量引用给定材料里的URL。"
+        )
         payload = {
             "model": self.model,
             "messages": [
                 {
                     "role": "system",
-                    "content": "你是一个GEO（Generative Engine Optimization）分析助手。你必须在回答末尾给出Sources列表，并尽量引用给定材料里的URL。",
+                    "content": (system_prompt or sys_default),
                 },
                 {"role": "user", "content": prompt},
             ],
